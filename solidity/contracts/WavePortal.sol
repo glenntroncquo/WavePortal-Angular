@@ -6,6 +6,10 @@ import "hardhat/console.sol";
 
 contract WavePortal{
     uint256 totalWaves = 0;
+    
+    constructor(){
+        console.log('The contract has been created!');
+    }
 
     function wave() public{
         totalWaves += 1;
@@ -15,10 +19,5 @@ contract WavePortal{
     function getTotalWaves() public view returns (uint256) {
         console.log('We have %d total waves', totalWaves);
         return totalWaves;
-    }
-
-
-    constructor(){
-        console.log('The contract has been created!');
     }
 }
