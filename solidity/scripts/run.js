@@ -1,5 +1,6 @@
-const main = () => {
+const main = async () => {
     
+
 }
 
 const runMain = async () => {
