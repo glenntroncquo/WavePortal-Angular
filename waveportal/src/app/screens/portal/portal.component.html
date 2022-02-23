@@ -1,1 +1,24 @@
-<p>portal works!</p>
+<div class="">
+    <div class="">
+      <div class="">
+      👋 Hey there!
+      </div>
+
+      <div class="bio">
+        I am Glenn and I'm a full-stack web developer and this is my first web3 project so that's pretty cool right? 
+        Connect your Ethereum wallet and wave at me!
+      </div>
+
+      <button *ngIf="!account; else elseBlock" (click)="connectWallet()">
+        Connect wallet
+      </button>
+
+      <ng-template #elseBlock>
+        <button class="button--wave" (click)="null">
+          Wave at me!
+        </button>
+      </ng-template>
+
+      
+    </div>
+</div>
