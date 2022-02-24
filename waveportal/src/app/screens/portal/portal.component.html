@@ -1,23 +1,25 @@
-<div class="">
-    <div class="">
-      <div class="">
+<div class="container">
+    <div class="content">
+      <div class="content-title">
       👋 Hey there!
       </div>
 
-      <div class="bio">
+      <div class="content-bio">
         I am Glenn and I'm a full-stack web developer and this is my first web3 project so that's pretty cool right? 
         Connect your Ethereum wallet and wave at me!
       </div>
 
-      <button *ngIf="!account; else elseBlock" (click)="connectWallet()">
-        Connect wallet
-      </button>
-
-      <ng-template #elseBlock>
-        <button class="button--wave" (click)="null">
-          Wave at me!
+      <div class="content-button">
+        <button *ngIf="!account; else elseBlock" (click)="connectWallet()">
+          Connect wallet
         </button>
-      </ng-template>
+  
+        <ng-template #elseBlock>
+          <button class="button--wave" (click)="null">
+            Wave at me!
+          </button>
+        </ng-template>
+      </div>
 
       
     </div>
