@@ -25,6 +25,14 @@
         </ng-template>
       </div>
 
+
+      <ul class="content-waves" *ngIf="allWaves">
+        <li class="content-waves-item" *ngFor="let wave of allWaves">
+          {{ wave }}
+        </li>
+
+      </ul>
+
       
     </div>
 </div>

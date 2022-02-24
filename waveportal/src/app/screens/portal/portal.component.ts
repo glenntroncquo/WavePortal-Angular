@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ethers } from 'ethers'
+import { Wave } from 'src/app/interface/wave'
 import abi from '../../utils/abi.json'
 declare var window: any
 
@@ -10,7 +11,8 @@ declare var window: any
 })
 export class PortalComponent implements OnInit {
   account: any
-  contractAddres: string = '0x987C448728521F72f3A488DC00ed451EeD4D96c8'
+  allWaves?: Wave[]
+  contractAddres: string = '0x3264BE540a4c928c33FA2Ed54dca6617d08cb07F'
   contractABI = abi
 
   constructor() {}
@@ -36,6 +38,7 @@ export class PortalComponent implements OnInit {
         const account = accounts[0]
         console.log('Found an authorized account:', account)
         this.account = account
+        this.getAllWaves()
       } else {
         console.log('No authorized account found')
       }
@@ -75,7 +78,7 @@ export class PortalComponent implements OnInit {
         let count = await wavePortalContract.getTotalWaves()
         console.log(count.toNumber())
 
-        const waveTxn = await wavePortalContract.wave()
+        const waveTxn = await wavePortalContract.wave('Hello World')
         console.log('Mining transaction...', waveTxn.hash)
 
         await waveTxn.wait()
@@ -83,11 +86,31 @@ export class PortalComponent implements OnInit {
 
         count = await wavePortalContract.getTotalWaves()
         console.log(count.toNumber())
+
+        const allWaves = await wavePortalContract.getAllWaves()
+        console.log(allWaves)
       } else {
         console.log('Ethereum object does not exist')
       }
     } catch (error) {
       console.error
     }
+  }
+
+  async getAllWaves() {
+    const { ethereum } = window
+    if (!ethereum) {
+      return
+    }
+
+    const provider = new ethers.providers.Web3Provider(ethereum)
+    const signer = provider.getSigner()
+    const wavePortalContract: any = new ethers.Contract(
+      this.contractAddres,
+      this.contractABI,
+      signer
+    )
+
+    this.allWaves = await wavePortalContract.getAllWaves()
   }
 }
