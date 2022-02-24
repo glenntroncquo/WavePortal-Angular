@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { ethers } from 'ethers'
+import abi from '../../utils/abi.json'
 declare var window: any
 
 @Component({
@@ -8,6 +10,9 @@ declare var window: any
 })
 export class PortalComponent implements OnInit {
   account: any
+  contractAddres: string = '0x987C448728521F72f3A488DC00ed451EeD4D96c8'
+  contractABI = abi
+
   constructor() {}
 
   ngOnInit(): void {
@@ -52,5 +57,37 @@ export class PortalComponent implements OnInit {
 
       this.account = accounts[0]
     } catch (error) {}
+  }
+
+  async wave() {
+    try {
+      const { ethereum } = window
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const wavePortalContract: any = new ethers.Contract(
+          this.contractAddres,
+          this.contractABI,
+          signer
+        )
+
+        let count = await wavePortalContract.getTotalWaves()
+        console.log(count.toNumber())
+
+        const waveTxn = await wavePortalContract.wave()
+        console.log('Mining transaction...', waveTxn.hash)
+
+        await waveTxn.wait()
+        console.log('Mined ', waveTxn.hash)
+
+        count = await wavePortalContract.getTotalWaves()
+        console.log(count.toNumber())
+      } else {
+        console.log('Ethereum object does not exist')
+      }
+    } catch (error) {
+      console.error
+    }
   }
 }

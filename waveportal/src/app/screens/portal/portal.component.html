@@ -5,8 +5,12 @@
       </div>
 
       <div class="content-bio">
-        I am Glenn and I'm a full-stack web developer and this is my first web3 project so that's pretty cool right? 
+        I am Glenn, a full-stack web developer and this is my first web3 project so that's pretty cool right? 
         Connect your Ethereum wallet and wave at me!
+      </div>
+
+      <div class="content-wallet" *ngIf="account">
+        You are waving at me with the following wallet: {{ account }}
       </div>
 
       <div class="content-button">
@@ -15,7 +19,7 @@
         </button>
   
         <ng-template #elseBlock>
-          <button class="button--wave" (click)="null">
+          <button class="button--wave" (click)="wave()">
             Wave at me!
           </button>
         </ng-template>

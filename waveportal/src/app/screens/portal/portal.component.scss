@@ -1,3 +1,9 @@
+@mixin font-normal {
+  color: rgb(100, 98, 98);
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
 .container {
   max-width: 100%;
   padding: 16px;
@@ -15,9 +21,7 @@
   &-bio {
     text-align: center;
     margin-bottom: 2rem;
-    color: rgb(100, 98, 98);
-    font-weight: 500;
-    font-size: 1.5rem;
+    @include font-normal;
   }
 
   &-button {
@@ -29,6 +33,12 @@
       border-radius: 0.1rem;
       cursor: pointer;
     }
+  }
+
+  &-wallet {
+    @include font-normal;
+    text-align: center;
+    font-size: 1rem;
   }
 }
 
